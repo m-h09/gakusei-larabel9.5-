@@ -15,35 +15,37 @@ class MainmenuController extends Controller
         return view('seito.mainmenu');
     }
 
-    public function StudentAll(Request $request){
-        //学年・名前検索
+    public function StudentAll(Request $request)
+    {
+        
+        
+        // 初期クエリビルダー
         $keyword = Student::query();
-        // 名前で検索
-        if($request->filled('search')){
-            $search = $request->input('search');
-            $keyword->where('name', 'like', '%'.$search.'%'); // 変数$searchを使用して部分一致検索
-        }
-    
-        // 学年で検索
-        //!==の意味は〜でない場合
-        if($request->filled('grade') && $request->input('grade') !== '' && $request->input('grade') !== '学生を選択してください'){
-            $grade = $request->input('grade');
-            $keyword->where('grade', 'like', '%'.$grade.'年%'); // 変数$gradeを使用して部分一致検索
-        }
-        
 
-        //学年、非表示の分
-        else {
-            // 学年が指定されていない場合は全ての学生を表示
-            $keyword->where(function($query) {
-                $query->where('grade', '<', 7)//7以上のものをwhereでフィルタリング
-                      ->orWhereNull('grade'); // 学年が空の場合も表示、orWhereNullでgradeがnullのものも表示
-            });
+        // 名前で検索
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $keyword->where('name', 'like', '%' . $search . '%'); // 部分一致検索
         }
-        
-        //一度の表示件数
+
+        // 学年で検索
+        if ($request->filled('grade') && $request->input('grade') !== '' && $request->input('grade') !== '学年を選択してください') {
+            $grade = $request->input('grade');
+            $keyword->where('grade', $grade);
+        } else {
+            // 名前検索のみの場合の処理
+            if (!$request->filled('search')) {
+                $keyword->where(function($query) {
+                    $query->where('grade', '<', 7) // 学年が7未満のものを検索
+                          ->orWhereNull('grade'); // 学年がnullのものも検索
+                });
+            }
+        }
+
+        // 検索結果を取得
         $students = $keyword->paginate(10);
-        return view('seito.gakuseihyouji',['students' => $students]);
+
+        return view('seito.gakuseihyouji', ['students' => $students]);
     }
     //学年更新ボタン
     public function updateGrades(){
