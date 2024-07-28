@@ -15,6 +15,24 @@ class Student extends Model
     protected $primaryKey ='id';
     public $incrementing = true;
     protected $fillable = ['name', 'address', 'img_path','comment'];
+
+    public function scopeSearch($query,$key){
+      if (isset($params['grade']) && $params['grade'] !== '' && $params['grade'] !== '学年を選択してください') {
+        $query->where('grade', $params['grade']);
+    }
+
+    if (!empty($params['search'])) {
+        $search = $params['search'];
+        $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        });
+    }
+
+    return $query;
+      
+
+    }
+
     
     
 
