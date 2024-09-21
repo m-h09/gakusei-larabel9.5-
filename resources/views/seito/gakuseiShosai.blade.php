@@ -33,10 +33,9 @@
                     <td>{{$student->comment}}</td>
                 
                     <td>
-                        <form action="{{ route('destroy',$student->id) }}" method="POST">
+                        <a class="btn btn-primary" href="{{ route('seito.gakuseihenshu',$student->id) }}">編集</a>
+                        <form action="{{ route('students.delete', $student->id) }}" method="POST" onsubmit="console.log('Form submitted');">
                         @csrf
-                        @method('DELETE') 
-                            <a class="btn btn-primary" href="{{ route('seito.gakuseihenshu',$student->id) }}">編集</a>
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
                     </td>

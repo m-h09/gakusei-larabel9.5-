@@ -21,22 +21,17 @@ Route::post('seito/gakuseihyouji', [MainmenuController::class, 'StudentAll'])->n
 Route::get('seito/gakuseishosai/{student}', [MainmenuController::class, 'Shosaikojin'])->name('seito.Shosaikojin');
 
 // shosai
-Route::get('seito/gakuseitoroku', [ShosaiController::class, 'TorokuView'])->name('seito.gakuseitoroku');
+Route::get('seito/gakuseientry', [ShosaiController::class, 'EntryView'])->name('seito.gakuseientry');
 Route::post('seito/store', [ShosaiController::class, 'store'])->name('seito.store');
 
-
 Route::get('seito/gakuseihenshu/{student}', [ShosaiController::class, 'gakuseiHenshu'])->name('seito.gakuseihenshu');
-Route::patch('seito/gakuseihenshu/{student}', [ShosaiController::class, 'update'])->name('update');
-Route::delete('/students/{student}', [ShosaiController::class, 'destroy'])->name('destroy');
+Route::post('seito/gakuseihenshu/{student}', [ShosaiController::class, 'update'])->name('update');
+Route::post('/students/{id}', [ShosaiController::class, 'delete'])->name('students.delete');
 
 Route::get('seito/gakuseiseiseki/{student}', [ShosaiController::class, 'gakuseiSeiseki'])->name('seito.gakuseiseiseki');
 Route::post('seito/gakuseiseiseki/{student}', [ShosaiController::class, 'storeSeiseki'])->name('seito.gakuseiseiseki_post');
 
 Route::get('seito/seisekihenshu/{subject}', [ShosaiController::class, 'seisekiHenshu'])->name('seito.seisekihenshu');
-Route::patch('seito/seisekihenshu/{id}', [ShosaiController::class, 'updateSeiseki'])->name('seito.updateseiseki');
+Route::post('seito/seisekihenshu/{id}', [ShosaiController::class, 'updateSeiseki'])->name('seito.updateseiseki');
 //学年更新
 Route::post('seito/update-grades',[MainmenuController::class,'updateGrades'])->name('seito.update-grades');
-//成績検索
-// Route::get('seito/gakuseishosai/{student}', [ShosaiController::class, 'Shosaikojin'])->name('seito.Shosaikojin');
-
-

@@ -30,8 +30,8 @@
              
         <form action="{{ route('update', $student->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PATCH')
-            <!-- <input type="hidden" name="_method" value="PATCH"> -->
+            
+            <input type="hidden" name="_method" value="POST">
 
                 <table>
                     <tr>

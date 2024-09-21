@@ -25,7 +25,7 @@
         @if(isset($subject))
          <form action="{{ route('seito.updateseiseki', $subject->id) }}" method="POST" >
               @csrf
-              @method('PATCH')
+             
               
               
               <label for="grade">学年</label>

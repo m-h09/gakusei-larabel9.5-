@@ -2,7 +2,7 @@
 <html>
     <head>
    
-        <meta charset="UTF=8">
+        <meta charset="UTF-8">
         <title>学生メニュー</title>
     </head>
     
@@ -19,9 +19,9 @@
         <form>
             @csrf
             <!-- GETメソッドを使用 -->
-            <input type="submit" name="hyouji" value="学生表示" formaction="/gakusei/public/seito/gakuseihyouji"></input>
-            <button type="submit" name="kousin" formaction="/gakusei/public/seito/update-grades" formmethod="POST">学年更新</button>
-            <button type="submit" name="gakuseitoroku" value="学生登録" formaction="/gakusei/public/seito/gakuseitoroku" formmethod="GET">学生登録</button>
+            <input type="submit" name="hyouji" value="学生表示" formaction="{{ url('/seito/gakuseihyouji') }}"></input>
+            <button type="submit" name="kousin" formaction="{{ url('/seito/update-grades') }}" formmethod="POST">学年更新</button>
+            <button type="submit" name="gakuseitoroku" value="学生登録" formaction="{{ url('/seito/gakuseientry') }}" formmethod="GET">学生登録</button>
         </form>
 </body>
     @stop

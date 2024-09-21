@@ -7,6 +7,9 @@
     @extends('layouts.app')
     @section('content')
     <h1>学生表示画面</h1>
+
+   
+
     <!-- 削除成功 -->
     @if (session('success'))
     <div class="alert alert-success">
@@ -15,11 +18,11 @@
     @endif
 
     
-    <form method="POST" action="{{ route('seito.gakuseihyouji_post') }}" name="shosaimain">
+    <form method="POST" action="{{ route('seito.gakuseihyouji_post') }}" >
         @csrf
         <!-- 学年と名前で検索する -->
         <select name="grade">
-            <option value="学生を選択してください">
+            <option value="学年を選択してください">
             <option value="1" {{ request('grade') =='1' ? 'selected' : '' }}>1年生</option>
             <option value="2" {{ request('grade') =='2' ? 'selected' : '' }}>2年生</option>
             <option value="3" {{ request('grade') =='3' ? 'selected' : '' }}>3年生</option>
