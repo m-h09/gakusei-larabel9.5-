@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainmenuController;
-use App\Http\Controllers\ShosaiController;
+use App\Http\Controllers\DetailController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,17 +21,17 @@ Route::post('seito/studentdisplay', [MainmenuController::class, 'StudentAll'])->
 Route::get('seito/studentdetail/{student}', [MainmenuController::class, 'DetailIndividual'])->name('seito.studentdetail');
 
 // shosai
-Route::get('seito/entry', [ShosaiController::class, 'EntryView'])->name('seito.entry');
-Route::post('seito/store', [ShosaiController::class, 'store'])->name('seito.store');
+Route::get('seito/entry', [DetailController::class, 'EntryView'])->name('seito.entry');
+Route::post('seito/store', [DetailController::class, 'store'])->name('seito.store');
 
-Route::get('seito/studentedit/{student}', [ShosaiController::class, 'StudentEdit'])->name('seito.studentedit');
-Route::post('seito/studentedit/{student}', [ShosaiController::class, 'update'])->name('update');
-Route::post('/students/{id}', [ShosaiController::class, 'delete'])->name('students.delete');
+Route::get('seito/studentedit/{student}', [DetailController::class, 'StudentEdit'])->name('seito.studentedit');
+Route::post('seito/studentedit/{student}', [DetailController::class, 'update'])->name('update');
+Route::post('/students/{id}', [DetailController::class, 'delete'])->name('students.delete');
 
-Route::get('seito/graderegister/{student}', [ShosaiController::class, 'GradeRegister'])->name('seito.graderegister');
-Route::post('seito/graderegister/{student}', [ShosaiController::class, 'storeGrade'])->name('seito.graderegister_post');
+Route::get('seito/graderegister/{student}', [DetailController::class, 'GradeRegister'])->name('seito.graderegister');
+Route::post('seito/graderegister/{student}', [DetailController::class, 'storeGrade'])->name('seito.graderegister_post');
 
-Route::get('seito/gradeedit/{subject}', [ShosaiController::class, 'GradeEdit'])->name('seito.gradeedit');
-Route::post('seito/gradeedit/{subject}', [ShosaiController::class, 'UpdateGradeEdit'])->name('seito.updategrade');
+Route::get('seito/gradeedit/{subject}', [DetailController::class, 'GradeEdit'])->name('seito.gradeedit');
+Route::post('seito/gradeedit/{subject}', [DetailController::class, 'UpdateGradeEdit'])->name('seito.updategrade');
 //学年更新
 Route::post('seito/update-grades',[MainmenuController::class,'UpdateGrades'])->name('seito.update-grades');
