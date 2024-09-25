@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'http://localhost:8888/gakusei/public/login';//元/home
+    protected $redirectTo ;//元/home
 
     /**
      * Create a new controller instance.
@@ -38,6 +38,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->redirectTo = route('seito.mainmenu');//31行目から移動
     }
 
     /**

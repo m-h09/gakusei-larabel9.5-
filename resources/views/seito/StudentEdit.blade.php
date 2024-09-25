@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
-        <title>学生編集</title>
+        <title>学生編集（gakuseihenshu）</title>
     </head>
     <body>
         @extends('layouts.app')
@@ -90,9 +90,8 @@
                 <!-- 登録ボタン -->
                 <button type="submit" id="henshu3" name="henshu" value="編集">編集</button>
 
-                <!-- <a class="btn btn-primary" href="{{ route('seito.Shosaikojin',$student->id) }}">戻る</a> -->
-        </form>
-        <form method="GET" action="{{ route('seito.Shosaikojin', $student->id) }}">
+        </form>       
+        <form method="GET" action="{{ route('seito.studentdetail', $student->id) }}">
             @csrf
             <button type="submit">戻る</button>
         </form>

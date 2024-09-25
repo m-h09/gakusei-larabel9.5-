@@ -25,7 +25,7 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'http://localhost:8888/gakusei/public/seito/mainmenu';
+    protected $redirectTo;
     
 
     /**
@@ -36,5 +36,6 @@ class ConfirmPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->redirectTo = route('seito.mainmenu');//28行目から移動
     }
 }

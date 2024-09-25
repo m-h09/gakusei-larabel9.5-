@@ -52,19 +52,28 @@ class School_grade extends Model
 
 
 
-    public static function storeGrade($data){
-      // Eloquentを使用してデータを挿入
+    public static function storeGrade($validated,$studentId){
+      
      
 
-        $new_grade = new self();
-        $new_grade->fill($data);
-        $new_grade->save();
+        $subject = new self();
+        $subject ->student_id=$studentId;
+
+        $subject ->fill($validated);
+        $subject ->save();
        
      }
-    public static function updateGrade($data){
-      $this->fill($data);
-      $this->save();
-    }
+     public static function updateGrade($data, $id)
+     {
+         try {
+             $grade = self::findOrFail($id); // 静的メソッドなので、self::を使用
+             $grade->fill($data); // データを更新
+             $grade->save();
+         } catch (Exception $e) {
+             Log::error('成績情報更新エラー(UpdateGrade):' . $e->getMessage());
+             throw $e; // 再度例外を投げてコントローラー側で処理
+         }
+     }
     public function student()
         {
             return $this->belongsTo(Student::class ,'student_id');

@@ -17,7 +17,7 @@ class ShosaiController extends Controller
 
     public function EntryView(){//参考create
        
-        return view('seito.gakuseientry');
+        return view('seito.entry');
     }
     
     public function store(SchoolRequest $request )
@@ -52,8 +52,8 @@ class ShosaiController extends Controller
   
   
 
-    public function gakuseiHenshu(Student $student){ //参考edit
-        return view('seito.gakuseihenshu',compact('student'));//compactでコントローラーからviewへデータを受け渡しする
+    public function StudentEdit(Student $student){ //参考edit gakuseihenshu
+        return view('seito.studentedit',compact('student'));//compactでコントローラーからviewへデータを受け渡しする
     }
     
     public function update(SchoolRequest $request ,$id){//学生編集フォーム・更新
@@ -62,6 +62,7 @@ class ShosaiController extends Controller
             $data =[
                 'name' =>$validatedData['name'],
                 'address' =>$validatedData['address'],
+                'grade' => $validatedData['grade'], 
                 'comment' =>$validatedData['comment'],
             ];
             if($request->hasFile('img_path')){
@@ -70,7 +71,7 @@ class ShosaiController extends Controller
             Student::updateStudent($id, $data);
             $student = Student::findOrFail($id);
 
-             return redirect()->route('seito.gakuseihenshu', ['student' => $student->id])->with('success', '学生情報が更新されました');
+             return redirect()->route('seito.studentedit', ['student' => $student->id])->with('success', '学生情報が更新されました');
             }catch(Exception $e){
                 Log::error('学生情報更新エラー(update):' . $e->getMessage());
                 return redirect()->back()->withErrors('更新に失敗しました');
@@ -91,87 +92,58 @@ class ShosaiController extends Controller
     }
 }
 
-    public function gakuseiSeiseki($id){//成績登録フォームへのルート・画面遷移
+    public function GradeRegister($id){//成績登録フォームへのルート・画面遷移
         try{
             $student =Student::findOrFail($id);
-            return view('seito.gakuseiseiseki',compact('student'));
+           
+            return view('seito.graderegister',compact('student'));
         } catch(Exception $e){
-            Log::error('成績登録時エラー(gakuseiSeiseki):' . $e->getMessage());
+            Log::error('成績登録時エラー(graderegister):' . $e->getMessage());
             return redirect()->back()->withErrors('学生情報の取得に失敗しました');
         }
     }
   
     
     
-    public function storeSeiseki(ResultRequest $request, $id) {
+    public function storeGrade(ResultRequest $request, $id) {
         try {
-            $validatedData = $request->validated();
-            $subject = new School_grade(); // 新しい成績オブジェクトを作成
-            
-            $subject->student_id = $id; // student_id に値を設定
-            $subject->grade = $validatedData['grade'];
-            $subject->term = $validatedData['term'];
-            $subject->japanese = $validatedData['japanese'];
-            $subject->math = $validatedData['math'];
-            $subject->science = $validatedData['science'];
-            $subject->social_studies = $validatedData['social_studies'];
-            $subject->music = $validatedData['music'];
-            $subject->home_economics = $validatedData['home_economics'];
-            $subject->english = $validatedData['english'];
-            $subject->art = $validatedData['art'];
-            $subject->health_and_physical_education = $validatedData['health_and_physical_education'];
-            
-            $subject->save(); // データベースに保存
-            
-            return redirect()->route('seito.gakuseiseiseki', ['student' => $id])
+            $validatedData =$request->validated();
+            School_grade::storeGrade($validatedData, $id);
+            return redirect()->route('seito.graderegister', ['student' => $id])
                 ->with('success', '成績情報が登録されました。');
         } catch (Exception $e) {
-            Log::error('成績登録エラー(storeSeiseki): ' . $e->getMessage());
+            Log::error('成績登録エラー(storeGrade): ' . $e->getMessage());
             return redirect()->back()->withErrors('成績登録ができませんでした。');
         }
     }
 
 
-    public function seisekiHenshu($id){//変更・修正をここでする
+    public function GradeEdit($id){//変更・修正をここでする
         try{
 
             $subject = School_grade::findOrFail($id);
             $student = $subject->student; 
-            return view('seito.seisekihenshu', compact('subject','student'));
+            return view('seito.gradeedit', compact('subject','student'));
         } catch(Exception $e){
-            Log::error('学生情報編集エラー(gakuseiHenshu):' . $e->getMessage());
+            Log::error('学生情報編集エラー(GradeEdit):' . $e->getMessage());
             return redirect()->back()->withErrors('学生情報の取得ができませんでした。');
         }
 
     }
     
     
-    public function updateSeiseki(ResultRequest $request, $id){//更新処理
-        $validatedData = $request->validate([
-            'grade' => 'required|integer',
-            'term' => 'required|integer',
-            'japanese' => 'required|integer',
-            'math' => 'required|integer',
-            'science' => 'required|integer',
-            'social_studies' => 'required|integer',
-            'music' => 'required|integer',
-            'home_economics' => 'required|integer',
-            'english' => 'required|integer',
-            'art' => 'required|integer',
-            'health_and_physical_education' => 'required|integer',
-        ]);
+    public function UpdateGradeEdit(ResultRequest $request, $id){//更新処理
+        $validatedData = $request->validated();
+        // dd($validatedData);
 
         try{
 
-            $validatedData =$request->validated();
-            $subject = School_grade::findOrFail($id);
-            //モデルのメソッド使用
-            $subject->updateGrade($validatedData);
-            $subject->save();
-            return redirect()->route('seito.seisekihenshu', ['subject' => $subject->id])->with('success', '成績情報が更新されました');
+            $subject = School_grade::findOrFail($id); // IDで対象の成績データを取得
+            School_grade::updateGrade($validatedData, $subject->id); 
+            return redirect()->route('seito.gradeedit', ['subject' => $subject->id])->with('success', '成績情報が更新されました');
             
         } catch(Exception $e){
-            Log::error('成績情報更新エラー(updateSeiseki):' . $e->getMessage());
+            Log::error('成績情報更新エラー(UpdateGrade):' . $e->getMessage());
             return redirect()->back()->withErrors('成績情報の更新に失敗しました。');
         }
     }

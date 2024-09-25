@@ -19,9 +19,9 @@
         <form>
             @csrf
             <!-- GETメソッドを使用 -->
-            <input type="submit" name="hyouji" value="学生表示" formaction="{{ url('/seito/gakuseihyouji') }}"></input>
+            <input type="submit" name="hyouji" value="学生表示" formaction="{{ url('/seito/studentdisplay') }}"></input>
             <button type="submit" name="kousin" formaction="{{ url('/seito/update-grades') }}" formmethod="POST">学年更新</button>
-            <button type="submit" name="gakuseitoroku" value="学生登録" formaction="{{ url('/seito/gakuseientry') }}" formmethod="GET">学生登録</button>
+            <button type="submit" name="gakuseitoroku" value="学生登録" formaction="{{ url('/seito/entry') }}" formmethod="GET">学生登録</button>
         </form>
 </body>
     @stop

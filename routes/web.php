@@ -16,22 +16,22 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('seito/mainmenu', [MainmenuController::class, 'MenuView'])->name('seito.mainmenu');
 Route::post('seito/mainmenu', [MainmenuController::class, 'MenuView'])->name('seito/mainmenu');
 
-Route::get('seito/gakuseihyouji', [MainmenuController::class, 'StudentAll'])->name('seito.gakuseihyouji');
-Route::post('seito/gakuseihyouji', [MainmenuController::class, 'StudentAll'])->name('seito.gakuseihyouji_post');
-Route::get('seito/gakuseishosai/{student}', [MainmenuController::class, 'Shosaikojin'])->name('seito.Shosaikojin');
+Route::get('seito/studentdisplay', [MainmenuController::class, 'StudentAll'])->name('seito.studentdisplay');
+Route::post('seito/studentdisplay', [MainmenuController::class, 'StudentAll'])->name('seito.studentdisplay_post');
+Route::get('seito/studentdetail/{student}', [MainmenuController::class, 'DetailIndividual'])->name('seito.studentdetail');
 
 // shosai
-Route::get('seito/gakuseientry', [ShosaiController::class, 'EntryView'])->name('seito.gakuseientry');
+Route::get('seito/entry', [ShosaiController::class, 'EntryView'])->name('seito.entry');
 Route::post('seito/store', [ShosaiController::class, 'store'])->name('seito.store');
 
-Route::get('seito/gakuseihenshu/{student}', [ShosaiController::class, 'gakuseiHenshu'])->name('seito.gakuseihenshu');
-Route::post('seito/gakuseihenshu/{student}', [ShosaiController::class, 'update'])->name('update');
+Route::get('seito/studentedit/{student}', [ShosaiController::class, 'StudentEdit'])->name('seito.studentedit');
+Route::post('seito/studentedit/{student}', [ShosaiController::class, 'update'])->name('update');
 Route::post('/students/{id}', [ShosaiController::class, 'delete'])->name('students.delete');
 
-Route::get('seito/gakuseiseiseki/{student}', [ShosaiController::class, 'gakuseiSeiseki'])->name('seito.gakuseiseiseki');
-Route::post('seito/gakuseiseiseki/{student}', [ShosaiController::class, 'storeSeiseki'])->name('seito.gakuseiseiseki_post');
+Route::get('seito/graderegister/{student}', [ShosaiController::class, 'GradeRegister'])->name('seito.graderegister');
+Route::post('seito/graderegister/{student}', [ShosaiController::class, 'storeGrade'])->name('seito.graderegister_post');
 
-Route::get('seito/seisekihenshu/{subject}', [ShosaiController::class, 'seisekiHenshu'])->name('seito.seisekihenshu');
-Route::post('seito/seisekihenshu/{id}', [ShosaiController::class, 'updateSeiseki'])->name('seito.updateseiseki');
+Route::get('seito/gradeedit/{subject}', [ShosaiController::class, 'GradeEdit'])->name('seito.gradeedit');
+Route::post('seito/gradeedit/{subject}', [ShosaiController::class, 'UpdateGradeEdit'])->name('seito.updategrade');
 //学年更新
-Route::post('seito/update-grades',[MainmenuController::class,'updateGrades'])->name('seito.update-grades');
+Route::post('seito/update-grades',[MainmenuController::class,'UpdateGrades'])->name('seito.update-grades');

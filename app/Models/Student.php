@@ -16,7 +16,7 @@ class Student extends Model
     protected $table ='students';
     protected $primaryKey ='id';
     public $incrementing = true;
-    protected $fillable = ['name', 'address', 'img_path','comment'];
+    protected $fillable = ['name', 'address','grade', 'img_path','comment'];
     
     
 
@@ -71,7 +71,8 @@ class Student extends Model
     //学生削除
     public static function destroyStudent($id){
       try {
-          $student = self::findOrFail($id);
+          $student = self::findOrFail($id);//静的メソッド、Controllerで$thisは使えない
+          //動的メソッドの時のみ$thisが使える
           $student->delete();
       } catch (Exception $e){
           Log::error('学生削除時エラー（destroy):' . $e->getMessage());

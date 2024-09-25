@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>詳細表示</title>
+        <title>詳細表示（gakuseiShosai）</title>
       
     </head>
     <body>
@@ -33,8 +33,8 @@
                     <td>{{$student->comment}}</td>
                 
                     <td>
-                        <a class="btn btn-primary" href="{{ route('seito.gakuseihenshu',$student->id) }}">編集</a>
                         <form action="{{ route('students.delete', $student->id) }}" method="POST" onsubmit="console.log('Form submitted');">
+                            <a class="btn btn-primary" href="{{ route('seito.studentedit',$student->id) }}">編集</a>
                         @csrf
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
@@ -45,7 +45,7 @@
     </div>  
        
         <h2>成績表示</h2> 
-        <form method="GET" action="{{ route('seito.Shosaikojin',$student->id) }}" name="shosaimain">
+        <form method="GET" action="{{ route('seito.studentdetail',$student->id) }}" name="shosaimain">
         @csrf
         <!-- 学年と名前で検索する -->
         <select name="grade">
@@ -106,7 +106,7 @@
                         <td>{{$subject->health_and_physical_education}}</td>
                         <td> 
                      
-                            <a class="btn btn-primary" href="{{ route('seito.seisekihenshu', $subject->id) }}">編集</a>
+                            <a class="btn btn-primary" href="{{ route('seito.gradeedit', $subject->id) }}">編集</a>
                             <!-- 各アクションボタンごとにフォームを個別にする -->
                         </td> 
                     </tr>
@@ -127,12 +127,12 @@
         </div>
         @endif
        <!-- 成績登録ボタンのフォーム -->
-            <form action="{{ route('seito.gakuseiseiseki' , ['student' => $student->id]) }}" method="GET">
+            <form action="{{ route('seito.graderegister' , ['student' => $student->id]) }}" method="GET">
                  @csrf
                  <button type="submit">成績登録</button>
             </form>
                 
-            <form action="{{ route('seito.gakuseihyouji') }}" method="GET">
+            <form action="{{ route('seito.studentdisplay') }}" method="GET">
                 <button type="submit">戻る</button>
             </form>
         

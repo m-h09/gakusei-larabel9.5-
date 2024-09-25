@@ -18,7 +18,7 @@
     @endif
 
     
-    <form method="POST" action="{{ route('seito.gakuseihyouji_post') }}" >
+    <form method="POST" action="{{ route('seito.studentdisplay_post') }}" >
         @csrf
         <!-- 学年と名前で検索する -->
         <select name="grade">
@@ -54,7 +54,7 @@
                         <td>{{ $student->grade }}</td>
                         <td>{{ $student->name }}</td>
                         <td>
-                        <a class="btn btn-primary" href="{{ route('seito.Shosaikojin',$student->id) }}">詳細</a>
+                        <a class="btn btn-primary" href="{{ route('seito.studentdetail',$student->id) }}">詳細</a>
                         </td>
                 </tr>
                 @endforeach

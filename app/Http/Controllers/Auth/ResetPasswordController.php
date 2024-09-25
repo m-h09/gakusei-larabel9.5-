@@ -25,5 +25,9 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'http://localhost:8888/gakusei/public/seito/mainmenu';
+    protected $redirectTo;
+
+    public function __construct(){
+        $this->redirectTo =route('seito.mainmenu');
+    }
 }

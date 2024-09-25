@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>成績登録</title>
+        <title>成績登録（gakuseiseiseki）</title>
     </head>
     <body>
     @extends('layouts.app')
@@ -28,12 +28,11 @@
             </div>
        @endif
 
-   <form id="seisekiForm" action="{{ route('seito.gakuseiseiseki_post', ['student' => $student->id]) }}" method="POST" enctype="multipart/form-data">
+   <form id="seisekiForm" action="{{ route('seito.graderegister_post', ['student' => $student->id]) }}" method="POST" enctype="multipart/form-data">
       
         
                 @csrf
-   <!-- <form action="{{ url('test-route') }}" method="POST" enctype="multipart/form-data">
-    @csrf -->
+   
                     <label for="grade">学年</label>
                     <select name="grade" id="grade">
                         <option value="">選択してください</option>
@@ -157,7 +156,7 @@
                   
 
                   
-                  <button type="button" onclick="window.location.href='{{ route('seito.Shosaikojin', ['student' => $student->id]) }}'">戻る</button>
+                  <button type="button" onclick="window.location.href='{{ route('seito.studentdetail', ['student' => $student->id]) }}'">戻る</button>
 
         
         </form>

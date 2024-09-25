@@ -23,7 +23,7 @@
             </div>
         @endif
         @if(isset($subject))
-         <form action="{{ route('seito.updateseiseki', $subject->id) }}" method="POST" >
+         <form action="{{ route('seito.updategrade', $subject->id) }}" method="POST" >
               @csrf
              
               
@@ -133,7 +133,7 @@
           @else
         <p>成績データが利用できません。</p>
             @endif
-            <form method="GET" action="{{ route('seito.Shosaikojin', $student->id )}}">
+            <form method="GET" action="{{ route('seito.studentdetail', $student->id )}}">
               @csrf
                <button type="submit">戻る</button>
             </form>

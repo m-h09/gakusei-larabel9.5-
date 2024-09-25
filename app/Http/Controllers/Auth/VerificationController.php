@@ -25,7 +25,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'http://localhost:8888/gakusei/public/seito/mainmenu';
+    protected $redirectTo ;
     
 
     /**
@@ -35,6 +35,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
+        $this->redirectTo = route('seito.mainmenu');
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');

@@ -17,7 +17,7 @@ class MainmenuController extends Controller
         return view('seito.mainmenu');
     }
 
-    public function StudentAll(Request $request)
+    public function StudentAll(Request $request)//gakuseihyoji
 {
     try {
         $search = $request->input('search');
@@ -26,7 +26,7 @@ class MainmenuController extends Controller
         // 学生を取得
         $students = Student::StudentAll($search, $grade);
 
-        return view('seito.gakuseihyouji', compact('students'));
+        return view('seito.studentdisplay', compact('students'));
     } catch (\Exception $e) {
         Log::error('学生表示エラー: ' . $e->getMessage());
         return redirect()->back()->withErrors('学生情報の取得中にエラーが発生しました。');
@@ -35,21 +35,22 @@ class MainmenuController extends Controller
 
 
     //学年更新ボタン
-    public function updateGrades(){
+    public function UpdateGrades(){
         Student::updateGrades();
         return redirect()->route('seito.mainmenu')->with('success', '学年が更新されました');
     }
 
     //選択した学生の学生詳細画面をみる
-    public function Shosaikojin($id, Request $request)
+    public function DetailIndividual($id, Request $request)
     {
+    
           $student = Student::findOrfail($id);
           $gradeAll = School_grade::filterGrades($id,$request->input('grade'),$request->input('term'));
 
             //setRelationでフィルタリング後のデータをリレーションとして置き換える
             $student->setRelation('subjects',$gradeAll);
-    
-        return view('seito.gakuseishosai', compact('student'));
+    //seito.gakuseishosai'
+        return view('seito.studentdetail', compact('student'));
     
        
     }
