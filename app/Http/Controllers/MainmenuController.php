@@ -13,11 +13,11 @@ use Exception;
 class MainmenuController extends Controller
 {
     public function MenuView(Request $request){
-        // dd($request);
+      
         return view('seito.mainmenu');
     }
 
-    public function StudentAll(Request $request)//gakuseihyoji
+    public function StudentAll(Request $request)
 {
     try {
         $search = $request->input('search');
@@ -49,7 +49,7 @@ class MainmenuController extends Controller
 
             //setRelationでフィルタリング後のデータをリレーションとして置き換える
             $student->setRelation('subjects',$gradeAll);
-    //seito.gakuseishosai'
+  
         return view('seito.studentdetail', compact('student'));
     
        

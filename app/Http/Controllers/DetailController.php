@@ -134,7 +134,7 @@ class DetailController extends Controller
     
     public function UpdateGradeEdit(ResultRequest $request, $id){//更新処理
         $validatedData = $request->validated();
-        // dd($validatedData);
+       
 
         try{
 
